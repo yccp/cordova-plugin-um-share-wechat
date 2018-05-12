@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin 
+  xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-um-share-wechat" version="1.0.0">
+  <name>UMShareWechat</name>
+  <description>Cordova Plugin for Umeng Share Wechat</description>
+  <license>ISC</license>
+  <keywords>cordova,umeng,social,share</keywords>
+  <preference name="UM_SHARE_WECHAT_KEY" />
+  <preference name="UM_SHARE_WECHAT_SECRET" />
+  <js-module src="www/UMShareWechat.js" name="UMShareWechat">
+    <clobbers target="UMShareWechat" />
+  </js-module>
+  <platform name="ios">
+    <pod name="UMengUShare/Social/WeChat" />
+    <config-file target="config.xml" parent="/*">
+      <feature name="UMShareWechat">
+        <param name="ios-package" value="UMShareWechat" />
+        <param name="onload" value="true" />
+      </feature>
+      <preference name="UM_SHARE_WECHAT_KEY" value="$UM_SHARE_WECHAT_KEY" />
+      <preference name="UM_SHARE_WECHAT_SECRET" value="$UM_SHARE_WECHAT_SECRET" />
+    </config-file>
+    <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+      <array>
+        <string>weixin</string>
+        <string>wechat</string>
+      </array>
+    </config-file>
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+      <array>
+        <dict>
+          <key>CFBundleURLName</key>
+          <string>weixin</string>
+          <key>CFBundleURLSchemes</key>
+          <array>
+            <string>$UM_SHARE_WECHAT_KEY</string>
+          </array>
+        </dict>
+      </array>
+    </config-file>
+    <header-file src="src/ios/UMShareWechat.h" />
+    <source-file src="src/ios/UMShareWechat.m" />
+  </platform>
+  <platform name="android">
+    <hook type="after_plugin_add" src="scripts/android-install.js" />
+    <hook type="after_plugin_install" src="scripts/android-install.js" />
+    <hook type="before_plugin_rm" src="scripts/android-install.js" />
+    <hook type="before_plugin_uninstall" src="scripts/android-install.js" />
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="UMShareWechat">
+        <param name="android-package" value="news.chen.yu.ionic.UMShareWechat"/>
+        <param name="onload" value="true" />
+      </feature>
+      <preference name="UM_SHARE_WECHAT_KEY" value="$UM_SHARE_WECHAT_KEY" />
+      <preference name="UM_SHARE_WECHAT_SECRET" value="$UM_SHARE_WECHAT_SECRET" />
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <activity android:name=".wxapi.WXEntryActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+      <activity android:name=".wxapi.WXPayEntryActivity" android:exported="true" android:launchMode="singleTop"/>
+    </config-file>
+    <framework src="src/android/UMShareWechat.gradle" custom="true" type="gradleReference" />
+    <source-file src="src/android/UMShareWechat.java" target-dir="src/news/chen/yu/ionic" />
+  </platform>
+</plugin>
