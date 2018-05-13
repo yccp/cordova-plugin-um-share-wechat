@@ -1,6 +1,6 @@
-#import "UShareWechat.h"
+#import "UMShareWechat.h"
 
-@implementation UShareWechat
+@implementation UMShareWechat
 - (void)pluginInitialize
 {
     
@@ -12,16 +12,15 @@
 {
     // Put here the code that should be on the AppDelegate.m
     // 获取AppKey
-    NSString *appKey = [[self.commandDelegate settings] objectForKey:@"ushare_wechat_app_key"];
+    NSString *appKey = [[self.commandDelegate settings] objectForKey:@"um_share_wechat_key"];
     NSLog(@"Wechat appKey: %@", appKey);
     self.appKey = appKey;
     // 获取AppSecret
-    NSString *appSecret = [[self.commandDelegate settings] objectForKey:@"ushare_wechat_app_secret"];
+    NSString *appSecret = [[self.commandDelegate settings] objectForKey:@"um_share_wechat_secret"];
     NSLog(@"Wechat appSecret: %@", appSecret);
     
     /*
      设置微信的appKey和appSecret
-     [微信平台从U-Share 4/5升级说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_1
      */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:appKey appSecret:appSecret redirectURL:nil];
     
@@ -31,45 +30,9 @@
     [[UMSocialManager defaultManager] removePlatformProviderWithPlatformTypes:@[@(UMSocialPlatformType_WechatFavorite)]];
 }
 
-- (void)sendPaymentRequest:(CDVInvokedUrlCommand *)command
+- (void)auth:(CDVInvokedUrlCommand *)command
 {
-    // check arguments
-    NSDictionary *params = [command.arguments objectAtIndex:0];
-    if (!params)
-    {
-        [self failWithCallbackID:command.callbackId withMessage:@"参数格式错误"];
-        return ;
-    }
-    
-    // check required parameters
-    NSArray *requiredParams;
-    if ([params objectForKey:@"mch_id"])
-    {
-        requiredParams = @[@"mch_id", @"prepay_id", @"timestamp", @"nonce", @"sign"];
-    }
-    else
-    {
-        requiredParams = @[@"partnerid", @"prepayid", @"timestamp", @"noncestr", @"sign"];
-    }
-    
-    for (NSString *key in requiredParams)
-    {
-        if (![params objectForKey:key])
-        {
-            [self failWithCallbackID:command.callbackId withMessage:@"参数格式错误"];
-            return ;
-        }
-    }
-    
-    PayReq *req = [[PayReq alloc] init];
-    req.partnerId = [params objectForKey:requiredParams[0]];
-    req.prepayId = [params objectForKey:requiredParams[1]];
-    req.timeStamp = [[params objectForKey:requiredParams[2]] intValue];
-    req.nonceStr = [params objectForKey:requiredParams[3]];
-    req.package = @"Sign=WXPay";
-    req.sign = [params objectForKey:requiredParams[4]];
-    
-    if ([WXApi sendReq:req])
+    if (TRUE)
     {
         // save the callback id
         self.currentCallbackId = command.callbackId;
@@ -90,11 +53,6 @@
     CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:message];
     [self.commandDelegate sendPluginResult:commandResult callbackId:callbackID];
 }
-
-//- (void)failWithCallbackID:(NSString *)callbackID withError:(NSError *)error
-//{
-//    [self failWithCallbackID:callbackID withMessage:[error localizedDescription]];
-//}
 
 - (void)failWithCallbackID:(NSString *)callbackID withMessage:(NSString *)message
 {

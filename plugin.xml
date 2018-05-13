@@ -11,7 +11,10 @@
     <clobbers target="UMShareWechat" />
   </js-module>
   <platform name="ios">
-    <pod name="UMengUShare/Social/WeChat" />
+    <pods-config ios-min-version="9.0" use-frameworks="true">
+      <source url="https://github.com/CocoaPods/Specs.git"/>
+    </pods-config>
+    <pod name="UMCShare/Social/ReducedWeChat" />
     <config-file target="config.xml" parent="/*">
       <feature name="UMShareWechat">
         <param name="ios-package" value="UMShareWechat" />
