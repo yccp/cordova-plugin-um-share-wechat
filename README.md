@@ -11,31 +11,3 @@ cordova plugin add cordova-plugin-um-share-wechat --variable UM_SHARE_WECHAT_KEY
 ```
 ionic cordova plugin add cordova-plugin-um-share-wechat --variable UM_SHARE_WECHAT_KEY=你的KEY --variable UM_SHARE_WECHAT_SECRET=你的SECRET
 ```
-
-## 登录
-
-```js
-window.UMShareWechat.auth(res => {
-  console.log(res);
-}, e => {
-  console.error(e);
-});
-
-```
-
-## 支付
-
-```js
-window.UMShareWechat.sendPaymentRequest({
-  partnerid: string; // merchant id
-  prepayid: string; // prepay id
-  noncestr: string; // nonce
-  timestamp: string; // timestamp
-  sign: string; // signed string
-}, () => {
-  console.log('success');
-}, e => {
-  console.error(e);
-});
-
-```

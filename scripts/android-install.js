@@ -8,7 +8,7 @@ module.exports = function (context) {
     plugins = context.opts.plugins || [];
 
   // The plugins array will be empty during platform add
-  if (plugins.length > 0 && plugins.indexOf('cordova-plugin-u-share-wechat') === -1) {
+  if (plugins.length > 0 && plugins.indexOf('cordova-plugin-um-share-wechat') === -1) {
     return;
   }
 
@@ -41,8 +41,7 @@ module.exports = function (context) {
 
   var targetDir = path.join(projectRoot, "platforms", "android", "src", packageName.replace(/\./g, path.sep), "wxapi");
   targetFiles = [
-    "WXEntryActivity.java", 
-    "WXPayEntryActivity.java"
+    "WXEntryActivity.java",
   ];
 
   if (['after_plugin_add', 'after_plugin_install'].indexOf(context.hook) === -1) {
