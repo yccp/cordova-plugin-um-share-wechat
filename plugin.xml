@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin 
-  xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-um-share-wechat" version="1.0.0">
+  xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-um-share-wechat" version="1.0.1">
   <name>UMShareWechat</name>
   <description>Cordova Plugin for Umeng Share Wechat</description>
   <license>ISC</license>
@@ -59,7 +59,6 @@
     </config-file>
     <config-file target="AndroidManifest.xml" parent="/manifest/application">
       <activity android:name=".wxapi.WXEntryActivity" android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:screenOrientation="portrait" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-      <activity android:name=".wxapi.WXPayEntryActivity" android:exported="true" android:launchMode="singleTop"/>
     </config-file>
     <framework src="src/android/UMShareWechat.gradle" custom="true" type="gradleReference" />
     <source-file src="src/android/UMShareWechat.java" target-dir="src/news/chen/yu/ionic" />
